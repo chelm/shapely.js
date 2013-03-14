@@ -1,0 +1,23 @@
+{ 
+  "name": "shapely.js",
+  "version": "0.0.1",
+  "description": "A basic JS port of the venerable Shapely.js",
+  "author": {
+    "name": "Chris Helm"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chelm/shapely.js.git"
+  },
+  "main": "index.js",
+  "browserify": "index-browserify.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "uglify-js": "2.2.x",
+    "vows": "0.7.x"
+  },
+  "scripts": {
+    "test": "./node_modules/vows/bin/vows"
+  }
+}
