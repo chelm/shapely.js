@@ -1,3 +1,4 @@
+shapely = {};
 shapely.geom = function( coords, type ){
 
   var type = type;
@@ -18,3 +19,9 @@ shapely.geom = function( coords, type ){
 
   return geom;
 };
+shapely.point = function( coords ){
+  var type = 'point';
+  var shape = shapely.geom( coords, type );
+  return shape;
+}
+//return shapely;})();
