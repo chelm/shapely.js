@@ -15,12 +15,20 @@ all: \
 
 .INTERMEDIATE shapely.js: \
 	src/start.js \
+	shapely.ops.js \
 	shapely.geom.js \
 	src/end.js
 
+shapely.ops.js: \
+  src/operations/area.js \
+  src/operations/buffer.js
+
 shapely.geom.js: \
 	src/geom/geometry.js	\
-	src/geom/point.js  
+	src/geom/point.js	\
+	src/geom/polygon.js  
+
+
 
 test: all
 	@$(JS_TESTER)

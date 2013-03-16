@@ -1,7 +1,4 @@
 require("../env");
-//require("../../shapely");
-
-console.log(shapely)
 
 var vows = require("vows"),
     assert = require("assert");
@@ -14,7 +11,6 @@ suite.addBatch({
       return shapely.point( [0, 1] );
     },
     "area": function( point ) {
-      console.log(point)
       assert.equal(point.area(), 0.0);
     },
     "length": function( point ) {
