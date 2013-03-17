@@ -19,4 +19,15 @@ suite.addBatch({
   }
 });
 
+suite.addBatch({
+  "unclosed polygons get closed (first coord matches last)": {
+    topic: function() {
+      return shapely.polygon( [[0, 5],[5, 5], [5, 0], [0, 0]] );
+    },
+    "is closed": function( poly ) {
+      assert.deepEqual( poly.coords[ poly.coords.length - 1 ], [0, 5] );
+    }
+  }
+});
+
 suite.export(module);

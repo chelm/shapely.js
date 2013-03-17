@@ -31,10 +31,9 @@ shapely.buffer = function( coords, distance, res ){
 }
 shapely.geom = function( coords, type ){
 
-  var type = type;
-  var coords = coords; 
-
   var geom = {
+    type: type,
+    coords: coords,
     area: area,
     length: length,
     buffer: buffer
@@ -72,6 +71,13 @@ shapely.point = function( coords ){
 }
 shapely.polygon = function( coords ){
   var type = 'polygon';
+
+  // is closed?
+  var len = coords.length;
+  if ( coords[len-1][0] != coords[0][0] || coords[len-1][1] != coords[0][1]) {
+    coords.push([ coords[0][0], coords[0][1] ]);
+  }
+
   var shape = shapely.geom( coords, type );
   return shape;
 }

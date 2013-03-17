@@ -1,9 +1,8 @@
 shapely.geom = function( coords, type ){
 
-  var type = type;
-  var coords = coords; 
-
   var geom = {
+    type: type,
+    coords: coords,
     area: area,
     length: length,
     buffer: buffer
