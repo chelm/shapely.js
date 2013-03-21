@@ -20,7 +20,7 @@ shapely.geom = function( coords, type ){
   }
 
   function area(){
-    return shapely.area( coords, type );
+    return 0.0;
   }
 
   function length(){

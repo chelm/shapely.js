@@ -1,4 +1,4 @@
 
-shapely.buffer = function( coords, distance, res ){
+shapely.buffer = function( coords, type, distance, res ){
 
 }

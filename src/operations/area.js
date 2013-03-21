@@ -1,4 +1,5 @@
-
+// area is no longer used, instead the fn is hung directly 
+// on the polygon since thats the only place its used
 shapely.area = function( coords, type ){
   var _area = {
     point: function(){
