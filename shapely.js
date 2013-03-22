@@ -46,7 +46,7 @@ shapely.geom = function( coords, type ){
 };
 
 shapely.point = function( coords ){
-  var shape = shapely.geom( coords, 'point' );
+  var shape = shapely.geom( coords, 'Point' );
 
   shape.x = coords[0];
   shape.y = coords[1];
@@ -80,7 +80,7 @@ shapely.polygon = function( coords ){
     coords.push([ coords[0][0], coords[0][1] ]);
   }
 
-  var shape = shapely.geom( coords, 'polygon' );
+  var shape = shapely.geom( coords, 'Polygon' );
 
   shape.area = function( ){
     var area = 0,
@@ -133,14 +133,14 @@ shapely.buffer = function( geometry, distance, res ){
     coords: []
   }
 
-  if ( geometry.type == 'point' ) {
+  if ( geometry.type == 'Point' ) {
 
       var pnt0 = [ geometry.coords[0] + distance, geometry.coords[1] ];
       buffer.coords.push( pnt0 );
 
       filletArc( geometry.coords, 0.0, 2.0 * Math.PI, -1);
 
-      return shapely.polygon(buffer.coords);
+      return shapely.polygon([buffer.coords]);
 
   } else {
 

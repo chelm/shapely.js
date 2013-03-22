@@ -6,7 +6,7 @@ shapely.polygon = function( coords ){
     coords.push([ coords[0][0], coords[0][1] ]);
   }
 
-  var shape = shapely.geom( coords, 'polygon' );
+  var shape = shapely.geom( coords, 'Polygon' );
 
   shape.area = function( ){
     var area = 0,

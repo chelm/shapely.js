@@ -11,7 +11,7 @@ suite.addBatch({
       return shapely.point( [0, 0] ).buffer( 5 );
     },
     "is a polygon": function( buffer ) {
-      assert.equal(buffer.type, 'polygon');
+      assert.equal(buffer.type, 'Polygon');
     }
   }
 });

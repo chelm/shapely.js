@@ -7,14 +7,14 @@ shapely.buffer = function( geometry, distance, res ){
     coords: []
   }
 
-  if ( geometry.type == 'point' ) {
+  if ( geometry.type == 'Point' ) {
 
       var pnt0 = [ geometry.coords[0] + distance, geometry.coords[1] ];
       buffer.coords.push( pnt0 );
 
       filletArc( geometry.coords, 0.0, 2.0 * Math.PI, -1);
 
-      return shapely.polygon(buffer.coords);
+      return shapely.polygon([buffer.coords]);
 
   } else {
 
