@@ -12,7 +12,7 @@ shapely.geom = function( coords, type ){
     union: union,
     centroid: centroid,
     difference: difference,
-    intersection: intersects,
+    intersection: intersection,
     within: within,
     contains: contains,
     overlaps: overlaps,
