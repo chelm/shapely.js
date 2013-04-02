@@ -24,5 +24,7 @@ For testing we're using vows. A popular async capable testing framework that use
 [See the wiki](https://github.com/chelm/shapely.js/wiki)
 
 ## Examples 
+# [Point Buffer](http://chelm.github.com/shapely.js/examples/buffer/point.html)
+# [Line Buffer](http://chelm.github.com/shapely.js/examples/buffer/line.html)
+# [Polygon Buffer](http://chelm.github.com/shapely.js/examples/buffer/polygon.html)
 
-# [A Buffer](http://chelm.github.com/shapely.js/examples/buffer.html)
