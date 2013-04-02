@@ -3,6 +3,22 @@
     <meta charset="utf-8">
     <style type="text/css">
 
+    #buffer {
+      height: 65px;
+      text-align: center;
+      background: #555;
+      color: #fff;
+      font-size: 50px;
+      font-family: Georgia;
+      line-height: 65px;
+    }
+    #buffer:hover {
+      cursor:pointer;
+      background: #DDD;
+      color: #555;
+    }
+
+
     circle {
       stroke: #fff;
       fill:#1c453d;
@@ -17,12 +33,12 @@
       stroke-linejoin: round;
     }
 
-    .points path {
+    .lines path {
       stroke: #fff;
       fill: #26D;
       stroke-width: 1px;
     }
-    .points path:hover {
+    .lines path:hover {
       fill:#999;
       cursor:pointer;
     }
@@ -32,14 +48,13 @@
 </head>
 <body>
     <div id="map"></div>
-    <input type="text" id="dist"/>
-    <button id="buffer">Buffer</button>
-    <script src="../shapely.min.js"></script>
+    <div id="buffer">Buffer!</div>
+    <script src="../../shapely.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
 
     <script type="text/javascript">
 
-    var w = 1000, h = 500;
+    var w = 1000, h = 500, b = 1;
 
     var vis = d3.select("#map").append("svg")
       .attr("width",w)
@@ -54,9 +69,9 @@
     var color = d3.scale.category10();
     var counter = 0;
 
-    var point = shapely.point([ -104, 39 ]);
+    var line = shapely.line([ [ -104, 39 ], [ -104, 45 ], [ -104, 50 ] ]);
 
-    d3.json("data/us-states.json", function( states ){
+    d3.json("../data/us-states.json", function( states ){
 
       vis.append('g')
         .attr('class', 'states')
@@ -66,25 +81,26 @@
           .attr('d', path);
 
       vis.append('g')
-        .attr('class', 'points')
-        .selectAll("circle")
-        .data( [ point.geojson({}) ] )
+        .attr('class', 'lines')
+        .selectAll("path")
+        .data( [ line.geojson({}) ] )
         .enter()
-        .append("circle")
-          .attr("cx", function(d, i) { return projection(d.geometry.coordinates)[0]; })
-          .attr("cy", function(d, i) { return projection(d.geometry.coordinates)[1]; })
-          .attr('r', 5);
+        .append("path")
+          .attr('d', function(d){ console.log(d, path(d)); return path(d); } )
+          .style("fill", '#f00')
+          .style("stroke", '#f00')
+          .style("stroke-width", 4)
       
       d3.select( '#buffer' )
         .on('click', function(){
-          buffer( document.getElementById('dist').value || 1 );
+          buffer( b++ );
         })
 
     });
 
     function buffer( dist ){
-      vis.select("g.points").insert('path', ':first-child')
-        .datum({type: "FeatureCollection", features: [ point.buffer( parseFloat(dist) ).geojson() ]})
+      vis.select("g.lines").insert('path', ':first-child')
+        .datum({type: "FeatureCollection", features: [ line.buffer( parseFloat(dist) ).geojson() ]})
         .attr("d", path)
         .style("fill", color(counter++));
     }

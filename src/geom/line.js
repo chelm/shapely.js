@@ -1,6 +1,6 @@
 shapely.line = function( coords ){
 
-  var shape = shapely.geom( coords, 'line' );
+  var shape = shapely.geom( coords, 'LineString' );
 
   shape.length = function(){
     var len = 0;

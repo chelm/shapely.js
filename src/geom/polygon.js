@@ -1,20 +1,26 @@
-shapely.polygon = function( coords ){
 
+
+shapely.polygon = function( coords ){
+  // TODO add supposrt for multi geoms
+  
   // closed?
-  var len = coords.length;
-  if ( coords[len-1][0] != coords[0][0] || coords[len-1][1] != coords[0][1]) {
-    coords.push([ coords[0][0], coords[0][1] ]);
+  if ( coords[0] ) {
+    var len = coords[0].length;
+    if ( coords[0][len-1][0] != coords[0][0][0] || coords[0][len-1][1] != coords[0][0][1]) {
+      coords[0].push(coords[0][0]);
+    }
   }
 
   var shape = shapely.geom( coords, 'Polygon' );
 
   shape.area = function( ){
+    var c = coords[0];
     var area = 0,
-      len = coords.length;
+      len = c.length;
     var j = len - 1;
 
     for (i = 0; i < len; i++) {
-      area += ( coords[j][0] + coords[i][0] ) * ( coords[j][1] - coords[i][1] );
+      area += ( c[j][0] + c[i][0] ) * ( c[j][1] - c[i][1] );
       j = i;
     }
 
