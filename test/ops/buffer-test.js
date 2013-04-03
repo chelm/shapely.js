@@ -30,7 +30,16 @@ suite.addBatch({
     "is a polygon": function( buffer ){
       assert.equal(buffer.type, 'Polygon');
     }
-  }
+  }, 
+  "can do an inner buffer on a polygon":{
+    topic: function(){
+      return shapely.polygon( [[[ -100, 40 ], [ -105, 40 ], [ -105, 45 ], [ -100, 45] ]] ).buffer( -1 );
+    },
+    "is a polygon": function( buffer ){
+      //console.log(buffer.coords)
+      assert.equal(buffer.type, 'Polygon');
+    }
+  },
 });
 
 suite.export(module);

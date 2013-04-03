@@ -6,7 +6,8 @@ shapely.geom = function( coords, type ){
     area: area,
     length: length,
     geojson: geojson,
-    buffer: buffer
+    buffer: buffer,
+    envelope: envelope
 
     /*simplify: simplify,
     union: union,
@@ -16,9 +17,7 @@ shapely.geom = function( coords, type ){
     within: within,
     contains: contains,
     overlaps: overlaps,
-    intersects: intersects,
-    geojson: geojson,
-    envelope: envelope*/
+    intersects: intersects*/
 
   }
 
@@ -39,6 +38,10 @@ shapely.geom = function( coords, type ){
       geometry: {coordinates: coords, type: type },
       properties: properties
     }
+  }
+
+  function envelope(){
+    return shapely.envelope( geom );
   }
 
   return geom;

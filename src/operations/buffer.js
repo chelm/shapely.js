@@ -65,7 +65,7 @@ shapely.buffer = function( geometry, distance, res ){
     buffer.coords[0] = [];
 
     for (var i = 0; i < nCoords; i++) {
-      var os = offset( [ geometry.coords[0][i], geometry.coords[0][i+1] ], -1);
+      var os = offset( [ geometry.coords[0][i], geometry.coords[0][i+1] ], 1);
       buffer.segments.push(os);
     }
 

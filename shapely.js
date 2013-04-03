@@ -7,7 +7,8 @@ shapely.geom = function( coords, type ){
     area: area,
     length: length,
     geojson: geojson,
-    buffer: buffer
+    buffer: buffer,
+    envelope: envelope
 
     /*simplify: simplify,
     union: union,
@@ -17,9 +18,7 @@ shapely.geom = function( coords, type ){
     within: within,
     contains: contains,
     overlaps: overlaps,
-    intersects: intersects,
-    geojson: geojson,
-    envelope: envelope*/
+    intersects: intersects*/
 
   }
 
@@ -40,6 +39,10 @@ shapely.geom = function( coords, type ){
       geometry: {coordinates: coords, type: type },
       properties: properties
     }
+  }
+
+  function envelope(){
+    return shapely.envelope( geom );
   }
 
   return geom;
@@ -131,6 +134,41 @@ shapely.area = function( coords, type ){
 
 }
 
+shapely.envelope = function( geometry ){
+
+  var minx = 0,
+    miny = 0,
+    maxx = 0,
+    maxy = 0;
+
+  var _envelope = {
+    'Point': function(){
+      return geometry;
+    },
+    'LineString': function() { 
+      return bounds( geometry.coords );
+    },
+    'Polygon': function(){
+      return bounds( geometry.coords[0] );
+    }
+  }
+
+  function bounds( coords ){
+    var len = coords.length;
+    while ( len-- ){
+      var c = coords[len];
+      minx = ( c[0] < minx ) ? c[0] : minx; 
+      miny = ( c[1] < miny ) ? c[1] : miny; 
+      maxx = ( c[0] > maxx ) ? c[0] : maxx; 
+      maxy = ( c[1] > maxy ) ? c[1] : maxy; 
+    }
+    return shapely.polygon([[ [minx, miny], [minx, maxy], [maxx, maxy], [maxx, miny] ]]);
+  }
+
+  return _envelope[ geometry.type ]( geometry.coords );
+
+}
+
 shapely.buffer = function( geometry, distance, res ){
 
   var quadrants = res || 16;
@@ -197,7 +235,7 @@ shapely.buffer = function( geometry, distance, res ){
     buffer.coords[0] = [];
 
     for (var i = 0; i < nCoords; i++) {
-      var os = offset( [ geometry.coords[0][i], geometry.coords[0][i+1] ], -1);
+      var os = offset( [ geometry.coords[0][i], geometry.coords[0][i+1] ], 1);
       buffer.segments.push(os);
     }
 

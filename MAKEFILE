@@ -21,6 +21,7 @@ all: \
 
 shapely.ops.js: \
   src/operations/area.js \
+  src/operations/envelope.js \
   src/operations/buffer.js
 
 shapely.geom.js: \
